@@ -1,0 +1,23 @@
+if (_inVehicle && {_vehicle isKindOf "UH1Y"}) then {
+   if (isEngineOn _vehicle) then {[_vehicle,0] call UH1Y_pack;};
+   if (UH1Y_fold < 0) then {
+	 theuh1y = _vehicle;
+	 if !(isEngineOn theuh1y) then {
+	   UH1Y_fold = theuh1y addAction ["Fold","Script\animate\UH1Y_fold.sqf","",5,false,true];
+	   UH1Y_unfold = theuh1y addAction ["UnFold","Script\animate\UH1Y_unfold.sqf","",5,false,true];
+	 };
+   };
+   if (isEngineOn theuh1y) then {
+	 theuh1y removeAction UH1Y_fold;
+	 UH1Y_fold = -1;
+	 theuh1y removeAction UH1Y_unfold;
+	 UH1Y_unfold = -1;
+   };
+} else {
+	if (!isNil "theuh1y") then {
+	   theuh1y removeAction UH1Y_fold;
+	   UH1Y_fold = -1;
+	   theuh1y removeAction UH1Y_unfold;
+	   UH1Y_unfold = -1;
+   };
+};
